@@ -1,0 +1,139 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Pengguna {
+  id                       String            @id @default(uuid())
+  peranan                  String
+  nama                     String
+  emel                     String            @unique
+  noKP                     String            @unique
+  kataLaluan               String
+  kodPengesahan            String
+  diciptaPada              DateTime          @default(now())
+  dikemaskiniPada          DateTime          @updatedAt
+  // pendaftaranYangDiuruskan UrusPendaftaran[] @relation("PendaftarPermohonan")
+}
+
+model UrusPendaftaran {
+  id               String        @id @default(uuid())
+  pendaftaranLulus Boolean?
+  // pendaftar        Pengguna      @relation("PendaftarPermohonan", fields: [pendaftarId], references: [id])
+  // pendaftarId      String
+  diciptaPada      DateTime      @default(now()) 
+  dikemaskiniPada  DateTime      @updatedAt   
+  kanak            DaftarKanak[] @relation("maklumatKanak")
+  bapa             DaftarBapa[]  @relation("maklumatBapa")
+  ibu              DaftarIbu[]   @relation("maklumatIbu")
+}   
+
+
+
+model DaftarKanak {
+  id              String          @id @default(uuid())
+  namaKanak       String
+  sijilLahir      String          @unique 
+  bangsa          String
+  tarikhLahir     String
+  tempatLahir     String
+  umur            String
+  jantina         String
+  alamatKanak     String
+  namaPenjaga     String
+  telefonPenjaga  String
+  hubunganPenjaga String
+  alamatPenjaga   String
+  diciptaPada     DateTime        @default(now())
+  dikemaskiniPada DateTime        @updatedAt
+  pendaftaran     UrusPendaftaran @relation("maklumatKanak", fields: [pendaftaranId], references: [id])
+  pendaftaranId   String  
+  // fk uruspendaftaran_id
+  // fk pendaftaran_id
+}
+
+model DaftarBapa {
+  id              String          @id @default(uuid())
+  nama            String
+  emel            String
+  noKP            String          @unique
+  status          String
+  pekerjaan       String
+  pendapatan      String
+  telefonPejabat  String
+  diciptaPada     DateTime        @default(now())
+  dikemaskiniPada DateTime        @updatedAt
+  pendaftaran     UrusPendaftaran @relation("maklumatBapa", fields: [pendaftaranId], references: [id])
+  pendaftaranId   String
+  // fk pendaftaran_id
+}
+
+model DaftarIbu {
+  id              String          @id @default(uuid())
+  nama            String
+  emel            String
+  noKP            String          @unique
+  status          String
+  pekerjaan       String
+  pendapatan      String
+  telefonPejabat  String
+  diciptaPada     DateTime        @default(now())
+  dikemaskiniPada DateTime        @updatedAt
+  pendaftaran     UrusPendaftaran @relation("maklumatIbu", fields: [pendaftaranId], references: [id])
+  pendaftaranId   String
+  // pendaftaran_id
+}
+
+model Kehadiran {
+  id              String   @id @default(uuid())
+  tarikh          String
+  hadir           String
+  suhuNormal      String
+  diciptaPada     DateTime @default(now())
+  dikemaskiniPada DateTime @updatedAt
+  // fk Daftarkanak_id
+}
+
+model Kekosongan {
+  id                   String   @id @default(uuid())
+  tahun                Int
+  jumlahKanak          Int
+  kapasitiKanak        Int
+  kekosonganSemasa     Int
+  kekosonganSeterusnya Int
+  diciptaPada          DateTime @default(now())
+  dikemaskiniPada      DateTime @updatedAt
+}
+
+model Aktiviti {
+  id              String            @id @default(uuid())
+  tarikh          DateTime          @default(now())
+  namaAktiviti    String
+  tahun           String
+  kesukaran       String
+  diciptaPada     DateTime          @default(now())
+  dikemaskiniPada DateTime          @updatedAt
+  aktivitiHariIni AktivitiHariIni[] @relation("rujukAktiviti")
+}
+
+model AktivitiHariIni {
+  id         String   @id @default(uuid())
+  tarikh     DateTime @default(now())
+  aktiviti   Aktiviti @relation("rujukAktiviti", fields: [aktivitiId], references: [id])
+  aktivitiId String
+}
+
+
+// model Pendaftaran {
+//   id              String   @id @default(uuid())
+//   nama            String
+//   umur            Int
+//   diciptaPada     DateTime @default(now())
+//   dikemaskiniPada DateTime @updatedAt
+//   kanak DaftarKanak[] @relation("maklumatKanak")   //(fields: [kanakId], references: [id])
+
+// }
