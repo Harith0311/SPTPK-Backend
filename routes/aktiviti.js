@@ -44,7 +44,7 @@ router.delete("/aktiviti/:id", async (req, res) => {
     console.log("disini error");
     res.json(oneActivity);  
   });  
-
+   
 router.put("/aktiviti/:id", async (req, res) => {
     const id = req.params.id;
     const newName = req.body.namaAktiviti;

@@ -24,7 +24,7 @@ router.get('/urusPendaftaran', async (req, res) => {
         },
         include: {
           kanak: true,
-          bapa: true,       
+          bapa: true,           
           ibu: true,
         },
       });

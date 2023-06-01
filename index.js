@@ -37,7 +37,7 @@ app.use("", require("./routes/kehadiran"));
 app.use("", require("./routes/kekosongan"));
 app.use("", require("./routes/pendaftaran"));
 app.use("", require("./routes/pengguna"));
-app.use("", require("./routes/urusPendaftaran"));
+app.use("", require("./routes/urusPendaftaran"));   
        
 app.listen(1001, () => console.log("Server running on port ${1001}"));
                             

@@ -18,4 +18,4 @@ router.get("/daftar", async (req, res) => {
         }
     });
     res.json(allRegistration);
-});
+});    

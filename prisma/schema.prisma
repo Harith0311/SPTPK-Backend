@@ -29,7 +29,7 @@ model UrusPendaftaran {
   dikemaskiniPada  DateTime      @updatedAt   
   kanak            DaftarKanak[] @relation("maklumatKanak")
   bapa             DaftarBapa[]  @relation("maklumatBapa")
-  ibu              DaftarIbu[]   @relation("maklumatIbu")
+  ibu              DaftarIbu[]   @relation("maklumatIbu")  
 }   
 
 
