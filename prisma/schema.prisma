@@ -8,15 +8,15 @@ datasource db {
 }
 
 model Pengguna {
-  id                       String            @id @default(uuid())
-  peranan                  String
-  nama                     String
-  emel                     String            @unique
-  noKP                     String            @unique
-  kataLaluan               String
-  kodPengesahan            String
-  diciptaPada              DateTime          @default(now())
-  dikemaskiniPada          DateTime          @updatedAt
+  id              String   @id @default(uuid())
+  peranan         String
+  nama            String
+  emel            String   @unique
+  noKP            String   @unique
+  kataLaluan      String
+  kodPengesahan   String
+  diciptaPada     DateTime @default(now())
+  dikemaskiniPada DateTime @updatedAt
   // pendaftaranYangDiuruskan UrusPendaftaran[] @relation("PendaftarPermohonan")
 }
 
@@ -25,19 +25,17 @@ model UrusPendaftaran {
   pendaftaranLulus Boolean?
   // pendaftar        Pengguna      @relation("PendaftarPermohonan", fields: [pendaftarId], references: [id])
   // pendaftarId      String
-  diciptaPada      DateTime      @default(now()) 
-  dikemaskiniPada  DateTime      @updatedAt   
-  kanak            DaftarKanak[] @relation("maklumatKanak")
-  bapa             DaftarBapa[]  @relation("maklumatBapa")
-  ibu              DaftarIbu[]   @relation("maklumatIbu")  
-}   
-
-
+  diciptaPada      DateTime      @default(now())
+  dikemaskiniPada  DateTime      @updatedAt
+  kanak            DaftarKanak?
+  bapa             DaftarBapa?
+  ibu              DaftarIbu?
+}
 
 model DaftarKanak {
   id              String          @id @default(uuid())
   namaKanak       String
-  sijilLahir      String          @unique 
+  sijilLahir      String          @unique
   bangsa          String
   tarikhLahir     String
   tempatLahir     String
@@ -50,8 +48,9 @@ model DaftarKanak {
   alamatPenjaga   String
   diciptaPada     DateTime        @default(now())
   dikemaskiniPada DateTime        @updatedAt
-  pendaftaran     UrusPendaftaran @relation("maklumatKanak", fields: [pendaftaranId], references: [id])
-  pendaftaranId   String  
+  pendaftaran     UrusPendaftaran @relation(fields: [pendaftaranId], references: [id])
+  pendaftaranId   String @unique
+  kehadiran       Kehadiran[]     @relation("maklumatKehadiran")
   // fk uruspendaftaran_id
   // fk pendaftaran_id
 }
@@ -67,8 +66,8 @@ model DaftarBapa {
   telefonPejabat  String
   diciptaPada     DateTime        @default(now())
   dikemaskiniPada DateTime        @updatedAt
-  pendaftaran     UrusPendaftaran @relation("maklumatBapa", fields: [pendaftaranId], references: [id])
-  pendaftaranId   String
+  pendaftaran     UrusPendaftaran @relation( fields: [pendaftaranId], references: [id])
+  pendaftaranId   String @unique
   // fk pendaftaran_id
 }
 
@@ -83,18 +82,19 @@ model DaftarIbu {
   telefonPejabat  String
   diciptaPada     DateTime        @default(now())
   dikemaskiniPada DateTime        @updatedAt
-  pendaftaran     UrusPendaftaran @relation("maklumatIbu", fields: [pendaftaranId], references: [id])
-  pendaftaranId   String
+  pendaftaran     UrusPendaftaran @relation( fields: [pendaftaranId], references: [id])
+  pendaftaranId   String @unique
   // pendaftaran_id
 }
 
 model Kehadiran {
-  id              String   @id @default(uuid())
-  tarikh          String
-  hadir           String
+  id              String      @id @default(uuid())
+  hadir           Boolean
   suhuNormal      String
-  diciptaPada     DateTime @default(now())
-  dikemaskiniPada DateTime @updatedAt
+  diciptaPada     DateTime    @default(now())
+  dikemaskiniPada DateTime    @updatedAt
+  kanak           DaftarKanak @relation("maklumatKehadiran", fields: [kanakId], references: [id])
+  kanakId         String
   // fk Daftarkanak_id
 }
 
@@ -126,14 +126,3 @@ model AktivitiHariIni {
   aktiviti   Aktiviti @relation("rujukAktiviti", fields: [aktivitiId], references: [id])
   aktivitiId String
 }
-
-
-// model Pendaftaran {
-//   id              String   @id @default(uuid())
-//   nama            String
-//   umur            Int
-//   diciptaPada     DateTime @default(now())
-//   dikemaskiniPada DateTime @updatedAt
-//   kanak DaftarKanak[] @relation("maklumatKanak")   //(fields: [kanakId], references: [id])
-
-// }
