@@ -36,6 +36,6 @@ router.get("/kanak/:id", async (req, res) => {
         }
     );
     res.json(oneChild);
-}); 
+});  
   
  

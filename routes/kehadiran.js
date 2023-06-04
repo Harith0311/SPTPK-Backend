@@ -12,6 +12,7 @@ module.exports = router;
 
 router.post("/kehadiran", async (req, res) => {
     const { kanakId, hadir, suhuNormal } = req.body;
+    console.log(req);
     const currentDate = new Date().toISOString().split("T")[0]; // Get the current date in YYYY-MM-DD format
   
     // Check if a record already exists for the given kanakId and current date
@@ -33,5 +34,5 @@ router.post("/kehadiran", async (req, res) => {
     // Create a new attendance record
     const newAttendance = await prisma.kehadiran.create({ data: req.body });
     res.json(newAttendance);
-  });
+  });  
 
