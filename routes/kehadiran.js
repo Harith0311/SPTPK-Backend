@@ -10,13 +10,13 @@ module.exports = router;
 //     res.json(newAttendance);
 // }); 
 
-router.get("/aktiviti", async (req, res) => {
-  const allActivity = await prisma.aktiviti.findMany();
-  res.json(allActivity);
+router.get("/kehadiran", async (req, res) => {
+  const allAttendance = await prisma.kehadiran.findMany();
+  res.json(allAttendance);
 });
 
 router.post("/kehadiran", async (req, res) => {
-    const { kanakId, hadir, suhuNormal } = req.body;
+    const { kanakId, hadir, suhuNormal } = req.body;   
     console.log(req);
     const currentDate = new Date().toISOString().split("T")[0]; // Get the current date in YYYY-MM-DD format
   
