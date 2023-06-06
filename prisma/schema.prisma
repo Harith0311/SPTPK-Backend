@@ -122,7 +122,7 @@ model Aktiviti {
 
 model AktivitiHariIni {
   id         String   @id @default(uuid())
-  tarikh     DateTime @default(now())
+  tarikh     DateTime @default(now()) 
   aktiviti   Aktiviti @relation("rujukAktiviti", fields: [aktivitiId], references: [id])
   aktivitiId String
 }

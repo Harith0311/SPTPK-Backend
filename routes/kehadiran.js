@@ -10,6 +10,11 @@ module.exports = router;
 //     res.json(newAttendance);
 // }); 
 
+router.get("/aktiviti", async (req, res) => {
+  const allActivity = await prisma.aktiviti.findMany();
+  res.json(allActivity);
+});
+
 router.post("/kehadiran", async (req, res) => {
     const { kanakId, hadir, suhuNormal } = req.body;
     console.log(req);
@@ -33,6 +38,7 @@ router.post("/kehadiran", async (req, res) => {
   
     // Create a new attendance record
     const newAttendance = await prisma.kehadiran.create({ data: req.body });
-    res.json(newAttendance);
+    res.json(newAttendance); 
   });  
 
+   
