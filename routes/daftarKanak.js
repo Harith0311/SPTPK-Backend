@@ -33,7 +33,7 @@ router.get("/kanak/:id", async (req, res) => {
     const oneChild = await prisma.daftarKanak.findUnique( 
         {
             where: {id: id}
-        }
+        } 
     );
     res.json(oneChild);
 });  
