@@ -36,6 +36,26 @@ router.get('/urusPendaftaran', async (req, res) => {
     }
   });
 
+router.get('/urusPendaftaran/lulus', async (req, res) => {
+    try {
+      const urusPendaftarans = await prisma.urusPendaftaran.findMany({
+        where: {
+          pendaftaranLulus: true
+        },
+        include: {
+          kanak: true,
+          bapa: true,           
+          ibu: true,
+        },
+      });
+  
+      res.json(urusPendaftarans);
+    } catch (error) {
+      console.error(error); 
+      res.status(500).json({ error: 'Server error' });
+    }
+  });
+ 
 router.get("/urusPendaftaran/:id", async (req, res) => {
     const { id } = req.params;
     try {
