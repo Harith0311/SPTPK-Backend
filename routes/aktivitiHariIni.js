@@ -11,7 +11,7 @@ router.get("/aktivitiHariIni", async (req, res) => {
             aktiviti: true
         }
     });   
-    console.log(allTodayActivity);
+    console.log(allTodayActivity); 
     res.json(allTodayActivity);
 }); 
   
@@ -21,7 +21,7 @@ router.post("/aktivitiHariIni", async (req, res) => {
 }); 
 
 
-
+ 
 router.delete("/aktivitiHariIni/:id", async (req, res) => {
     const id = req.params.id;
     // Delete activity ID from aktivitiHariIni table
@@ -30,8 +30,8 @@ router.delete("/aktivitiHariIni/:id", async (req, res) => {
             id: id  
         }
       });
-      res.json(deletedAktivitiHariIni);
-  });
+      res.json(deletedAktivitiHariIni);  
+  });   
 
   
 

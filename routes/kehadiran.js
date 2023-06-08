@@ -11,7 +11,7 @@ module.exports = router;
 // }); 
 
 router.get("/kehadiran", async (req, res) => {
-  const { date } = req.query;
+  const { date } = req.query; 
 
   let allAttendance = await prisma.kehadiran.findMany();
   if (date) {

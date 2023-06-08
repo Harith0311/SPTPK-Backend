@@ -25,14 +25,14 @@ router.post("/kanak", async (req, res) => {
 router.get("/kanak", async (req, res) => {
     const allChild = await prisma.daftarKanak.findMany();
     res.json(allChild);
-}); 
+});  
 
 router.get("/kanak/:id", async (req, res) => {
     const id = req.params.id;
     console.log(id);
     const oneChild = await prisma.daftarKanak.findUnique( 
         {
-            where: {id: id}
+            where: {id: id} 
         } 
     );
     res.json(oneChild);
