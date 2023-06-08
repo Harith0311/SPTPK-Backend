@@ -23,8 +23,6 @@ model Pengguna {
 model UrusPendaftaran {
   id               String       @id @default(uuid())
   pendaftaranLulus Boolean?
-  // pendaftar        Pengguna      @relation("PendaftarPermohonan", fields: [pendaftarId], references: [id])
-  // pendaftarId      String
   diciptaPada      DateTime     @default(now())
   dikemaskiniPada  DateTime     @updatedAt
   kanak            DaftarKanak?

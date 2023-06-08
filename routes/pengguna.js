@@ -13,14 +13,28 @@ router.get("/pengguna", async (req, res) => {
     res.json(allUsers);  
 });
 
-
+router.get('/pengguna/staf', async (req, res) => {
+    try {
+      const staffUser = await prisma.pengguna.findMany({
+        where: {
+          peranan: "Staf Taska", 
+        }
+      });
+  
+      res.json(staffUser);
+    } catch (error) {
+      console.error(error); 
+      res.status(500).json({ error: 'Server error' });
+    }
+  });
     
 router.post("/pengguna", async (req, res) => {
     
     // const newUser = await prisma.Pengguna.create({ data: req.body });
     // const hashedPassword = await bcrypt.hash(password, 10);
     // res.json(newUser);
-    const { peranan,
+    const { 
+        peranan,
         nama,
         emel,
         noKP,

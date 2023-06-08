@@ -55,6 +55,52 @@ router.get('/urusPendaftaran/lulus', async (req, res) => {
       res.status(500).json({ error: 'Server error' });
     }
   });
+
+  router.get('/urusPendaftaran/perempuan', async (req, res) => {
+    try {
+      const urusPendaftarans = await prisma.urusPendaftaran.findMany({
+        where: {
+          pendaftaranLulus: true, 
+          kanak: {
+            jantina: "Perempuan"  
+          } 
+        },
+        include: {
+          kanak: true,
+          bapa: true,           
+          ibu: true,
+        },
+      });
+  
+      res.json(urusPendaftarans);
+    } catch (error) {
+      console.error(error); 
+      res.status(500).json({ error: 'Server error' });
+    }
+  });
+
+  router.get('/urusPendaftaran/lelaki', async (req, res) => {
+    try {
+      const urusPendaftarans = await prisma.urusPendaftaran.findMany({
+        where: {
+          pendaftaranLulus: true, 
+          kanak: {
+            jantina: "Lelaki"  
+          } 
+        },
+        include: {
+          kanak: true,
+          bapa: true,           
+          ibu: true,
+        },
+      });
+  
+      res.json(urusPendaftarans);
+    } catch (error) {
+      console.error(error); 
+      res.status(500).json({ error: 'Server error' });
+    }
+  });
  
 router.get("/urusPendaftaran/:id", async (req, res) => {
     const { id } = req.params;
