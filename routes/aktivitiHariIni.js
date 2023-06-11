@@ -50,7 +50,7 @@ router.delete("/aktivitiHariIni/:id", async (req, res) => {
         }
       }); 
       res.json(deletedAktivitiHariIni);   
-  });   
+  });    
 
   
 
