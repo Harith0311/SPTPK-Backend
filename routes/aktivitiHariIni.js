@@ -14,6 +14,25 @@ router.get("/aktivitiHariIni", async (req, res) => {
     console.log(allTodayActivity); 
     res.json(allTodayActivity);
 }); 
+
+router.get('/aktivitiHariIni/count', async (req, res) => {
+    const { kelas } = req.query;
+  
+    try {
+      const existingActivities = await prisma.aktivitiHariIni.findMany({
+        where: {
+          kelas: kelas,
+        },
+      });
+  
+      const existingActivitiesCount = existingActivities.length;
+  
+      res.json(existingActivitiesCount);
+    } catch (error) {
+      console.error('Error fetching existing activities count:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
   
 router.post("/aktivitiHariIni", async (req, res) => {
     const newTodayActivity = await prisma.aktivitiHariIni.create({ data: req.body });
@@ -23,14 +42,14 @@ router.post("/aktivitiHariIni", async (req, res) => {
 
  
 router.delete("/aktivitiHariIni/:id", async (req, res) => {
-    const id = req.params.id;
+    const id = req.params.id; 
     // Delete activity ID from aktivitiHariIni table
       const deletedAktivitiHariIni = await prisma.aktivitiHariIni.delete({
         where: {
             id: id  
         }
-      });
-      res.json(deletedAktivitiHariIni);  
+      }); 
+      res.json(deletedAktivitiHariIni);   
   });   
 
   

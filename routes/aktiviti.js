@@ -38,7 +38,7 @@ router.delete("/aktiviti/:id", async (req, res) => {
   });
 
   router.get("/aktiviti/:id", async (req, res) => {
-    const oneActivity = await prisma.aktiviti.findUnique({ 
+    const oneActivity = await prisma.aktiviti.findUnique({  
         where: { id: req.params.id}
     });
     console.log("disini error");
@@ -49,7 +49,7 @@ router.put("/aktiviti/:id", async (req, res) => {
     const id = req.params.id;
     const newName = req.body.namaAktiviti;
     const newYear = req.body.tahun;
-    const newDifficulty = req.body.kesukaran;
+    const newDifficulty = req.body.kesukaran; 
     const updatedActivity = await prisma.aktiviti.update({ 
         where: { id: id },
         data: { 
