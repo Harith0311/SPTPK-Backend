@@ -37,7 +37,7 @@ router.get('/aktivitiHariIni/count', async (req, res) => {
 router.post("/aktivitiHariIni", async (req, res) => {
     const newTodayActivity = await prisma.aktivitiHariIni.create({ data: req.body });
     res.json(newTodayActivity);
-}); 
+});   
 
 
  

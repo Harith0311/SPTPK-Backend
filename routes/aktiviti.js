@@ -29,7 +29,7 @@ router.delete("/aktiviti/:id", async (req, res) => {
         where: { id: id },
       });
   
-      res.json(deletedActivity);
+      res.json(deletedActivity);   
     } catch (error) {
       // Handle any errors
       console.error(error);
