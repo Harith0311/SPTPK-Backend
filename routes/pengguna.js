@@ -95,12 +95,7 @@ router.post("/pengguna/logMasuk", async (req, res) => {
     res.send(userData);
 });
 
-// router.get("/pengguna/:id", async (req, res) => {
-//     const oneUser = await prisma.pengguna.findUnique({   
-//         where:{ id: req.params.id}
-//     });
-//     res.json(oneUser);
-// }); 
+
 
 router.get("/pengguna/:id", async (req, res) => {
     const { id } = req.params;
