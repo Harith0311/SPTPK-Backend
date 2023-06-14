@@ -105,3 +105,15 @@ router.get("/pengguna/:id", async (req, res) => {
     });
     res.json(oneUser);
 }); 
+
+router.put("/pengguna/:id", async (req, res) => {
+    const id = req.params.id;
+    const newPass = req.body.kataLaluan;
+    const updatedActivity = await prisma.aktiviti.update({ 
+        where: { id: id },
+        data: { 
+            kataLaluan: newPass,
+        },
+     });
+    res.json(updatedActivity);  
+});   
