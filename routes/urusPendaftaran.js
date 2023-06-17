@@ -151,10 +151,15 @@ router.get("/urusPendaftaran/:id", async (req, res) => {
   router.put("/urusPendaftaran/:id", async (req, res) => {
     const id = req.params.id;
     const newAgreement = req.body.pendaftaranLulus;
+    const code = req.body.kodPengesahan;
+    const childClass = req.body.kelas;
+
     const updatedAgreement = await prisma.urusPendaftaran.update({ 
         where: { id: id },
         data: { 
-            pendaftaranLulus: newAgreement
+            pendaftaranLulus: newAgreement,
+            kodPengesahan: code,
+            kelas: childClass,
           },
      });
     res.json(updatedAgreement);  
