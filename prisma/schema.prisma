@@ -23,6 +23,8 @@ model Pengguna {
 model UrusPendaftaran {
   id               String       @id @default(uuid())
   pendaftaranLulus Boolean?
+  kodPengesahan    String?
+  kelas            String?
   diciptaPada      DateTime     @default(now())
   dikemaskiniPada  DateTime     @updatedAt
   kanak            DaftarKanak?
@@ -43,6 +45,7 @@ model DaftarKanak {
   telefonPenjaga  String
   hubunganPenjaga String
   alamatPenjaga   String
+  kelas           String?
   diciptaPada     DateTime        @default(now())
   dikemaskiniPada DateTime        @updatedAt
   pendaftaran     UrusPendaftaran @relation(fields: [pendaftaranId], references: [id])
