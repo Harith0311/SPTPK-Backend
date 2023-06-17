@@ -46,6 +46,7 @@ model DaftarKanak {
   hubunganPenjaga String
   alamatPenjaga   String
   kelas           String?
+  kodPengesahan   String?
   diciptaPada     DateTime        @default(now())
   dikemaskiniPada DateTime        @updatedAt
   pendaftaran     UrusPendaftaran @relation(fields: [pendaftaranId], references: [id])

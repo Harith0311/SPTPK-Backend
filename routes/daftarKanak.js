@@ -37,5 +37,20 @@ router.get("/kanak/:id", async (req, res) => {
     );
     res.json(oneChild);
 });  
+
+router.put("/kanak/:id", async (req, res) => {
+    const id = req.params.id;
+    const childClass = req.body.kelas;
+    const code = req.body.kodPengesahan;
+
+    const updatedClass = await prisma.daftarKanak.update({ 
+        where: { id: id },
+        data: { 
+            kelas: childClass, 
+            kodPengesahan: code,
+          },
+     });
+    res.json(updatedClass);  
+});   
   
- 
+   
