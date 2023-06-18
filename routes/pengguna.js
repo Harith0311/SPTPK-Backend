@@ -72,11 +72,26 @@ router.put("/:id", async (req, res) => {
     res.json(updatedEmail);
 }); 
 
-router.post("/pengguna/logMasuk", async (req, res) => {
-    const { email, password } = req.body;
+router.put("/pengguna/:id", async (req, res) => {  
+    const id = req.params.id;
+    const pass = req.body.password;
+    console.log(id);
+    console.log(pass);
+    const hashedPassword = await bcrypt.hash(pass, 10);
+    const updatedPassword = await prisma.pengguna.update({ 
+        where: { id: id },
+        data: { 
+            kataLaluan: hashedPassword   
+        },     
+     });  
+    res.json(updatedPassword);
+}); 
 
-    const user = await prisma.pengguna.findUnique({
-        where: { emel: email},
+router.post("/pengguna/logMasuk", async (req, res) => {  
+    const { email, password } = req.body;
+   
+    const user = await prisma.pengguna.findUnique({  
+        where: { emel: email},                                       
     })
 
     console.log(user); 

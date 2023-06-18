@@ -13,7 +13,14 @@ module.exports = router;
 router.get("/kehadiran", async (req, res) => {
   const { date } = req.query; 
 
-  let allAttendance = await prisma.kehadiran.findMany();
+  let allAttendance = await prisma.kehadiran.findMany(
+    {
+      include: {
+        kanak: true,
+      },
+    }
+    
+  );
   if (date) {
     allAttendance = allAttendance.filter((attendance) => {
       const dateAtt = new Date(attendance.diciptaPada);
