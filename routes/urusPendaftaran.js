@@ -19,11 +19,11 @@ router.get('/urusPendaftaran', async (req, res) => {
         include: {
           kanak: true,
           bapa: true,           
-          ibu: true,
+          ibu: true, 
         },
       });
   
-      res.json(urusPendaftarans);
+      res.json(urusPendaftarans);   
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Server error' });
@@ -47,7 +47,7 @@ router.delete("/urusPendaftaran/:id", async (req, res) => {
         // Delete activity ID from aktivitiHariIni table
         const deletedBapa = await prisma.daftarBapa.deleteMany({
           where: { pendaftaranId: id },  
-        });
+        }); 
     
         // Delete activity from aktiviti table
         const deletedRegistration = await prisma.urusPendaftaran.delete({ 
@@ -66,7 +66,7 @@ router.get('/urusPendaftaran/lulus', async (req, res) => {
     try {
       const urusPendaftarans = await prisma.urusPendaftaran.findMany({
         where: {
-          pendaftaranLulus: true
+          pendaftaranLulus: true 
         },
         include: {
           kanak: true,
