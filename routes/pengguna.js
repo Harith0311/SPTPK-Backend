@@ -13,8 +13,23 @@ router.get("/pengguna", async (req, res) => {
     res.json(allUsers);  
 });
 
-router.get('/pengguna/staf', async (req, res) => {
+router.get("/pengguna/kod", async (req, res) => {
     try {
+      const { noIC } = req.query;
+      const user = await prisma.pengguna.findFirst({
+        where: {
+          noKP: noIC,
+        },
+      });
+      res.json(user);
+    } catch (error) {
+      console.error("Error retrieving NoKP:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  });
+
+router.get('/pengguna/staf', async (req, res) => {
+    try { 
       const staffUser = await prisma.pengguna.findMany({
         where: {
           peranan: "Staf Taska", 

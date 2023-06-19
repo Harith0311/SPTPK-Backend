@@ -14,10 +14,9 @@ model Pengguna {
   emel            String   @unique
   noKP            String   @unique
   kataLaluan      String
-  kodPengesahan   String
+  kodPengesahan   String   @unique
   diciptaPada     DateTime @default(now())
   dikemaskiniPada DateTime @updatedAt
-  // pendaftaranYangDiuruskan UrusPendaftaran[] @relation("PendaftarPermohonan")
 }
 
 model UrusPendaftaran {
@@ -52,8 +51,6 @@ model DaftarKanak {
   pendaftaran     UrusPendaftaran @relation(fields: [pendaftaranId], references: [id])
   pendaftaranId   String          @unique
   kehadiran       Kehadiran[]     @relation("maklumatKehadiran")
-  // fk uruspendaftaran_id
-  // fk pendaftaran_id
 }
 
 model DaftarBapa {
@@ -69,7 +66,6 @@ model DaftarBapa {
   dikemaskiniPada DateTime        @updatedAt
   pendaftaran     UrusPendaftaran @relation(fields: [pendaftaranId], references: [id])
   pendaftaranId   String          @unique
-  // fk pendaftaran_id
 }
 
 model DaftarIbu {
@@ -85,7 +81,6 @@ model DaftarIbu {
   dikemaskiniPada DateTime        @updatedAt
   pendaftaran     UrusPendaftaran @relation(fields: [pendaftaranId], references: [id])
   pendaftaranId   String          @unique
-  // pendaftaran_id
 }
 
 model Kehadiran {
@@ -96,19 +91,7 @@ model Kehadiran {
   dikemaskiniPada DateTime    @updatedAt
   kanak           DaftarKanak @relation("maklumatKehadiran", fields: [kanakId], references: [id])
   kanakId         String
-  // fk Daftarkanak_id
 }
-
-// model Kekosongan {
-//   id                   String   @id @default(uuid())
-//   tahun                Int
-//   jumlahKanak          Int
-//   kapasitiKanak        Int
-//   kekosonganSemasa     Int
-//   kekosonganSeterusnya Int
-//   diciptaPada          DateTime @default(now())
-//   dikemaskiniPada      DateTime @updatedAt
-// }
 
 model Aktiviti {
   id              String            @id @default(uuid())
