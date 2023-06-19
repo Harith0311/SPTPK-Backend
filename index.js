@@ -36,7 +36,6 @@ app.use("", require("./routes/daftarBapa"));
 app.use("", require("./routes/daftarIbu"));
 app.use("", require("./routes/daftarKanak"));
 app.use("", require("./routes/kehadiran"));
-app.use("", require("./routes/kekosongan"));
 app.use("", require("./routes/pendaftaran"));
 app.use("", require("./routes/pengguna"));
 app.use("", require("./routes/urusPendaftaran"));   
