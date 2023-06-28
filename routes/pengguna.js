@@ -87,20 +87,55 @@ router.put("/:id", async (req, res) => {
     res.json(updatedEmail);
 }); 
 
-router.put("/pengguna/:id", async (req, res) => {  
+// router.put("/pengguna/:id", async (req, res) => {  
+//     const id = req.params.id;
+//     const pass = req.body.password;
+//     console.log(id);
+//     console.log(pass);
+//     const hashedPassword = await bcrypt.hash(pass, 10);
+//     const updatedPassword = await prisma.pengguna.update({ 
+//         where: { id: id },
+//         data: { 
+//             kataLaluan: hashedPassword   
+//         },     
+//      });  
+//     res.json(updatedPassword);
+// }); 
+
+// Update password
+router.put("/pengguna/kataLaluan/:id", async (req, res) => {
     const id = req.params.id;
-    const pass = req.body.password;
-    console.log(id);
-    console.log(pass);
-    const hashedPassword = await bcrypt.hash(pass, 10);
-    const updatedPassword = await prisma.pengguna.update({ 
+    const oldPass = req.body.oldPass;
+    const newPass = req.body.newPass;
+  
+    try {
+      const pengguna = await prisma.pengguna.findUnique({ where: { id: id } });
+  
+      if (!pengguna) {
+        return res.status(404).json({ error: "Kata laluan lama salah" });
+      }
+  
+      const isPasswordValid = await bcrypt.compare(oldPass, pengguna.kataLaluan); 
+  
+      if (!isPasswordValid) {
+        return res.status(400).json({ error: "*Kata laluan lama salah" });
+      }
+  
+      const hashedPassword = await bcrypt.hash(newPass, 10);
+  
+      const updatedPassword = await prisma.pengguna.update({
         where: { id: id },
-        data: { 
-            kataLaluan: hashedPassword   
-        },     
-     });  
-    res.json(updatedPassword);
-}); 
+        data: {
+          kataLaluan: hashedPassword
+        }
+      });
+  
+      res.json(updatedPassword);
+    } catch (error) {
+      console.error('Error updating password:', error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
 
 router.post("/pengguna/logMasuk", async (req, res) => {  
     const { email, password } = req.body;
