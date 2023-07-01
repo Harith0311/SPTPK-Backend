@@ -27,6 +27,8 @@ router.get("/kanak", async (req, res) => {
     res.json(allChild);
 });  
 
+
+
 router.get("/kanak/:id", async (req, res) => {
     const id = req.params.id;
     console.log(id);
