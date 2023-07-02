@@ -27,6 +27,19 @@ router.get("/kanak", async (req, res) => {
     res.json(allChild);
 });  
 
+// router.get("/kanak/lulus", async (req, res) => {
+//     const allChild = await prisma.daftarKanak.findUnique({
+//         where: {
+//             kelas: {
+//                 not: null,
+//                 not: undefined
+//             }
+//         }
+//     }
+//     );
+//     res.json(allChild);
+// });  
+
 
 
 router.get("/kanak/:id", async (req, res) => {
