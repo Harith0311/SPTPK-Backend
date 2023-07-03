@@ -102,12 +102,12 @@ router.put("/:id", async (req, res) => {
 //     res.json(updatedPassword);
 // }); 
 
-// Update password
+// Update password inside account
 router.put("/pengguna/kataLaluan/:id", async (req, res) => {
     const id = req.params.id;
     const oldPass = req.body.oldPass;
     const newPass = req.body.newPass;
-  
+    
     try {
       const pengguna = await prisma.pengguna.findUnique({ where: { id: id } });
   
@@ -171,14 +171,24 @@ router.get("/pengguna/:id", async (req, res) => {
     res.json(oneUser);
 }); 
 
-router.put("/pengguna/:id", async (req, res) => {
+// Reset password outside
+router.put("/pengguna/luar/:id", async (req, res) => {
     const id = req.params.id;
-    const newPass = req.body.kataLaluan;
-    const updatedActivity = await prisma.aktiviti.update({ 
-        where: { id: id },
-        data: { 
-            kataLaluan: newPass,
-        },
-     });
-    res.json(updatedActivity);  
+    const newPass = req.body.password;
+
+    try{
+      const hashedPassword = await bcrypt.hash(newPass, 10);
+
+      const updatedPass = await prisma.pengguna.update({ 
+          where: { id: id },
+          data: { 
+              kataLaluan: hashedPassword,
+          },
+      });
+    res.json(updatedPass); 
+    } catch (error) {
+      console.error('Error updating password:', error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+     
 });   
