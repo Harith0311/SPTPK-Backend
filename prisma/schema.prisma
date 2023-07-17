@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Pengguna {
+model pengguna {
   id              String   @id @default(uuid())
   peranan         String
   nama            String
@@ -19,19 +19,19 @@ model Pengguna {
   dikemaskiniPada DateTime @updatedAt
 }
 
-model UrusPendaftaran {
+model urus_pendaftaran {
   id               String       @id @default(uuid())
   pendaftaranLulus Boolean?
   kodPengesahan    String?
   kelas            String?
   diciptaPada      DateTime     @default(now())
   dikemaskiniPada  DateTime     @updatedAt
-  kanak            DaftarKanak?
-  bapa             DaftarBapa?
-  ibu              DaftarIbu?
+  kanak            daftar_kanak?
+  bapa             daftar_bapa?
+  ibu              daftar_ibu?
 }
 
-model DaftarKanak {
+model daftar_kanak {
   id              String          @id @default(uuid())
   namaKanak       String
   sijilLahir      String          @unique
@@ -48,12 +48,12 @@ model DaftarKanak {
   kodPengesahan   String?
   diciptaPada     DateTime        @default(now())
   dikemaskiniPada DateTime        @updatedAt
-  pendaftaran     UrusPendaftaran @relation(fields: [pendaftaranId], references: [id])
+  pendaftaran     urus_pendaftaran @relation(fields: [pendaftaranId], references: [id])
   pendaftaranId   String          @unique
-  kehadiran       Kehadiran[]     @relation("maklumatKehadiran")
+  kehadiran       kehadiran[]     @relation("maklumatKehadiran")
 }
 
-model DaftarBapa {
+model daftar_bapa {
   id              String          @id @default(uuid())
   nama            String
   emel            String
@@ -64,11 +64,11 @@ model DaftarBapa {
   telefonPejabat  String
   diciptaPada     DateTime        @default(now())
   dikemaskiniPada DateTime        @updatedAt
-  pendaftaran     UrusPendaftaran @relation(fields: [pendaftaranId], references: [id])
+  pendaftaran     urus_pendaftaran @relation(fields: [pendaftaranId], references: [id])
   pendaftaranId   String          @unique
 }
 
-model DaftarIbu {
+model daftar_ibu {
   id              String          @id @default(uuid())
   nama            String
   emel            String
@@ -79,21 +79,21 @@ model DaftarIbu {
   telefonPejabat  String
   diciptaPada     DateTime        @default(now())
   dikemaskiniPada DateTime        @updatedAt
-  pendaftaran     UrusPendaftaran @relation(fields: [pendaftaranId], references: [id])
+  pendaftaran     urus_pendaftaran @relation(fields: [pendaftaranId], references: [id])
   pendaftaranId   String          @unique
 }
 
-model Kehadiran {
+model kehadiran {
   id              String      @id @default(uuid())
   hadir           Boolean
   suhuNormal      String
   diciptaPada     DateTime    @default(now())
   dikemaskiniPada DateTime    @updatedAt
-  kanak           DaftarKanak @relation("maklumatKehadiran", fields: [kanakId], references: [id])
+  kanak           daftar_kanak @relation("maklumatKehadiran", fields: [kanakId], references: [id])
   kanakId         String
 }
 
-model Aktiviti {
+model aktiviti {
   id              String            @id @default(uuid())
   tarikh          DateTime          @default(now())
   namaAktiviti    String
@@ -101,13 +101,13 @@ model Aktiviti {
   kesukaran       String
   diciptaPada     DateTime          @default(now())
   dikemaskiniPada DateTime          @updatedAt
-  aktivitiHariIni AktivitiHariIni[] @relation("rujukAktiviti")
+  aktivitiHariIni aktiviti_hari_ini[] @relation("rujukAktiviti")
 }
 
-model AktivitiHariIni {
+model aktiviti_hari_ini {
   id         String   @id @default(uuid())
   tarikh     DateTime @default(now())
   kelas      String
-  aktiviti   Aktiviti @relation("rujukAktiviti", fields: [aktivitiId], references: [id])
+  aktiviti   aktiviti @relation("rujukAktiviti", fields: [aktivitiId], references: [id])
   aktivitiId String
 }

@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 module.exports = router;
 
 router.post("/bapa", async (req, res) => {
-    const checkIC = await prisma.daftarBapa.findUnique({
+    const checkIC = await prisma.daftar_bapa.findUnique({
             where: {
                 noKP: req.body.noKP
             }
@@ -18,13 +18,13 @@ router.post("/bapa", async (req, res) => {
         return;
     }
 
-    const registerNewDad = await prisma.daftarBapa.create({ data: req.body });
+    const registerNewDad = await prisma.daftar_bapa.create({ data: req.body });
     res.json(registerNewDad);  
 });  
 
 router.get("/bapa/:id", async (req, res) => {
     const id = req.params.id;
-    const oneDad = await prisma.daftarBapa.findUnique( 
+    const oneDad = await prisma.daftar_bapa.findUnique( 
         {
             where: {id: id}
         }

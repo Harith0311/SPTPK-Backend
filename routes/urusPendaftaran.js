@@ -6,13 +6,13 @@ const prisma = new PrismaClient();
 module.exports = router;
 
 router.post("/urusPendaftaran", async (req, res) => {
-    const newRegistration = await prisma.urusPendaftaran.create({ data: req.body });
+    const newRegistration = await prisma.urus_pendaftaran.create({ data: req.body });
     res.json(newRegistration);
 });        
 
 router.get('/urusPendaftaran', async (req, res) => {
     try {
-      const urusPendaftarans = await prisma.urusPendaftaran.findMany({
+      const urusPendaftarans = await prisma.urus_pendaftaran.findMany({
         where: {
           pendaftaranLulus: false
         },
@@ -35,22 +35,22 @@ router.delete("/urusPendaftaran/:id", async (req, res) => {
 
       try {
         // Delete activity ID from aktivitiHariIni table
-        const deletedKanak = await prisma.daftarKanak.deleteMany({
+        const deletedKanak = await prisma.daftar_kanak.deleteMany({
           where: { pendaftaranId: id },  
         });
 
         // Delete activity ID from aktivitiHariIni table
-        const deletedIbu = await prisma.daftarIbu.deleteMany({
+        const deletedIbu = await prisma.daftar_ibu.deleteMany({
           where: { pendaftaranId: id },  
         });
 
         // Delete activity ID from aktivitiHariIni table
-        const deletedBapa = await prisma.daftarBapa.deleteMany({
+        const deletedBapa = await prisma.daftar_bapa.deleteMany({
           where: { pendaftaranId: id },  
         }); 
     
         // Delete activity from aktiviti table
-        const deletedRegistration = await prisma.urusPendaftaran.delete({ 
+        const deletedRegistration = await prisma.urus_pendaftaran.delete({ 
           where: { id: id },
         });
     
@@ -64,7 +64,7 @@ router.delete("/urusPendaftaran/:id", async (req, res) => {
 
 router.get('/urusPendaftaran/lulus', async (req, res) => {
     try {
-      const urusPendaftarans = await prisma.urusPendaftaran.findMany({
+      const urusPendaftarans = await prisma.urus_pendaftaran.findMany({
         where: {
           pendaftaranLulus: true 
         },
@@ -84,7 +84,7 @@ router.get('/urusPendaftaran/lulus', async (req, res) => {
 
   router.get('/urusPendaftaran/perempuan', async (req, res) => {
     try {
-      const urusPendaftarans = await prisma.urusPendaftaran.findMany({
+      const urusPendaftarans = await prisma.urus_pendaftaran.findMany({
         where: {
           pendaftaranLulus: true, 
           kanak: {
@@ -107,7 +107,7 @@ router.get('/urusPendaftaran/lulus', async (req, res) => {
 
   router.get('/urusPendaftaran/lelaki', async (req, res) => {
     try {
-      const urusPendaftarans = await prisma.urusPendaftaran.findMany({
+      const urusPendaftarans = await prisma.urus_pendaftaran.findMany({
         where: {
           pendaftaranLulus: true, 
           kanak: {
@@ -131,7 +131,7 @@ router.get('/urusPendaftaran/lulus', async (req, res) => {
 router.get("/urusPendaftaran/:id", async (req, res) => {
     const { id } = req.params;
     try {
-      const oneRegistration = await prisma.urusPendaftaran.findUnique({
+      const oneRegistration = await prisma.urus_pendaftaran.findUnique({
         where: {
           id: id,
         },
@@ -154,7 +154,7 @@ router.get("/urusPendaftaran/:id", async (req, res) => {
     const code = req.body.kodPengesahan;
     const childClass = req.body.kelas;
 
-    const updatedAgreement = await prisma.urusPendaftaran.update({ 
+    const updatedAgreement = await prisma.urus_pendaftaran.update({ 
         where: { id: id },
         data: { 
             pendaftaranLulus: newAgreement,

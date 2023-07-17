@@ -20,7 +20,7 @@ router.delete("/aktiviti/:id", async (req, res) => {
   
     try {
       // Delete activity ID from aktivitiHariIni table
-      const deletedAktivitiHariIni = await prisma.aktivitiHariIni.deleteMany({
+      const deletedAktivitiHariIni = await prisma.aktiviti_hari_ini.deleteMany({
         where: { aktivitiId: id },  
       });
   

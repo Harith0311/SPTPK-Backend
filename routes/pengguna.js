@@ -9,7 +9,7 @@ module.exports = router;
 // CRUD Pengguna
 
 router.get("/pengguna", async (req, res) => {
-    const allUsers = await prisma.Pengguna.findMany();
+    const allUsers = await prisma.pengguna.findMany();
     res.json(allUsers);  
 });
 
@@ -80,7 +80,7 @@ router.post("/pengguna", async (req, res) => {
 router.put("/:id", async (req, res) => {  
     const id = req.params.id;
     const newEmail = req.body.emel;
-    const updatedEmail = await prisma.Pengguna.update({ 
+    const updatedEmail = await prisma.pengguna.update({ 
         where: { id: parseInt(id) },
         data: { emel: newEmail },   
      });  

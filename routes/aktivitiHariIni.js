@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 module.exports = router;
 
 router.get("/aktivitiHariIni", async (req, res) => {
-    const allTodayActivity = await prisma.aktivitiHariIni.findMany({
+    const allTodayActivity = await prisma.aktiviti_hari_ini.findMany({
         include: {
             aktiviti: true
         }
@@ -19,7 +19,7 @@ router.get('/aktivitiHariIni/count', async (req, res) => {
     const { kelas } = req.query;
   
     try {
-      const existingActivities = await prisma.aktivitiHariIni.findMany({
+      const existingActivities = await prisma.aktiviti_hari_ini.findMany({
         where: {
           kelas: kelas,
         },
@@ -35,7 +35,7 @@ router.get('/aktivitiHariIni/count', async (req, res) => {
   });
   
 router.post("/aktivitiHariIni", async (req, res) => {
-    const newTodayActivity = await prisma.aktivitiHariIni.create({ data: req.body });
+    const newTodayActivity = await prisma.aktiviti_hari_ini.create({ data: req.body });
     res.json(newTodayActivity);
 });   
 
@@ -44,7 +44,7 @@ router.post("/aktivitiHariIni", async (req, res) => {
 router.delete("/aktivitiHariIni/:id", async (req, res) => {
     const id = req.params.id; 
     // Delete activity ID from aktivitiHariIni table
-      const deletedAktivitiHariIni = await prisma.aktivitiHariIni.delete({
+      const deletedAktivitiHariIni = await prisma.aktiviti_hari_ini.delete({
         where: {
             id: id  
         }
